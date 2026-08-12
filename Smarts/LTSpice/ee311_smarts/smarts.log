@@ -1,0 +1,56 @@
+LTspice 24.1.10 for Windows
+Circuit: C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\smarts.net
+Start Time: Tue Aug  4 12:38:58 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\smarts.net(9): Limiting rise time to 0.0025.
+
+V1 N006 0 PULSE(0 3.8 0 0 0 25m 50m)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\smarts.net(9): Limiting fall time to 0.0025.
+
+V1 N006 0 PULSE(0 3.8 0 0 0 25m 50m)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Early termination of direct N-R iteration.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+vernier = 0.5
+Gmin = 2.07126
+vernier = 0.25
+vernier = 0.125
+Gmin = 1.57455
+vernier = 0.166667
+vernier = 0.0833333
+vernier = 0.0416667
+vernier = 0.0208333
+Gmin = 1.44284
+vernier = 0.0104167
+Gmin = 1.40217
+vernier = 0.0138889
+vernier = 0.00694444
+vernier = 0.00347222
+Gmin = 1.38047
+vernier = 0.00173611
+vernier = 0.000868055
+vernier = 0.000434028
+Gmin = 0
+Gmin = 0
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 33.3333%
+Source Step = 63.6364%
+Source Step = 93.9394%
+Source stepping succeeded in finding the operating point.
+
+Total elapsed time: 0.282 seconds.
+
+Files loaded:
+C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\smarts.net
+C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\TLC081.mod
+

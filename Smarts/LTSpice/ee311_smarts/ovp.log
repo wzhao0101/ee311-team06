@@ -1,0 +1,15 @@
+LTspice 24.1.10 for Windows
+Circuit: C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\ovp.net
+Start Time: Tue Aug  4 21:52:55 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 1.976 seconds.
+
+Files loaded:
+C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\ovp.net
+C:\Users\kktjg\AppData\Local\LTspice\lib\sub\UniversalOpAmp2.lib
+
