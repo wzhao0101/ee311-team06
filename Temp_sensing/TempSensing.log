@@ -1,0 +1,17 @@
+LTspice 26.0.1 for Windows
+Circuit: C:\Users\byhz780\OneDrive - The University of Auckland\Documents\Temp_sensing\TempSensing.net
+Start Time: Fri Aug 14 11:31:49 2026
+solver = Normal
+Maximum thread count: 24
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration succeeded in finding operating point.
+Direct Newton iteration succeeded in finding operating point.
+Direct Newton iteration succeeded in finding operating point.
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 0.114 seconds.
+
+Files loaded:
+C:\Users\byhz780\OneDrive - The University of Auckland\Documents\Temp_sensing\TempSensing.net
+
