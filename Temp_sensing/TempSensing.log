@@ -1,17 +1,43 @@
-LTspice 26.0.1 for Windows
-Circuit: C:\Users\byhz780\OneDrive - The University of Auckland\Documents\Temp_sensing\TempSensing.net
-Start Time: Fri Aug 14 11:31:49 2026
+LTspice 24.1.9 for Windows
+Circuit: C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
+Start Time: Sat Aug 22 18:29:39 2026
 solver = Normal
-Maximum thread count: 24
+Maximum thread count: 16
 tnom = 27
 temp = 27
 method = trap
-Direct Newton iteration succeeded in finding operating point.
-Direct Newton iteration succeeded in finding operating point.
-Direct Newton iteration succeeded in finding operating point.
-Direct Newton iteration succeeded in finding operating point.
-Total elapsed time: 0.114 seconds.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Increasing initial diagonal Gmin to 100
+Increasing initial diagonal Gmin to 1000
+Gmin = 1000
+Gmin = 107.374
+Gmin = 11.5292
+Gmin = 1.23794
+Gmin = 0.132923
+Gmin = 0.0142725
+Gmin = 0.0015325
+Gmin = 0.00016455
+vernier = 0.5
+Gmin = 4.67527e-05
+vernier = 0.666667
+vernier = 0.888888
+Gmin = 8.30855e-06
+vernier = 1
+Gmin = 9.33136e-07
+Gmin = 1.00195e-07
+Gmin = 1.07583e-08
+Gmin = 1.15517e-09
+Gmin = 1.24035e-10
+Gmin = 1.33182e-11
+Gmin = 1.43003e-12
+Gmin = 1.53548e-13
+Gmin = 0
+Gmin stepping succeeded in finding the operating point.
+
+Total elapsed time: 0.273 seconds.
 
 Files loaded:
-C:\Users\byhz780\OneDrive - The University of Auckland\Documents\Temp_sensing\TempSensing.net
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
+C:\Users\wzhao\AppData\Local\LTspice\lib\sub\LT1011.sub
 
