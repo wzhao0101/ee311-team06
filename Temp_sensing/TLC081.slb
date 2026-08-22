@@ -1,0 +1,39 @@
+*version 8.0 1047929220
+@index
+symloc TLC081 0 790
+*symbol TLC081
+d CMOS 12V Single-Supply Op Amp
+@type p 8.0
+@attributes
+a 1 sp 9 0 0 0 hln 100 REFDES=U?
+a 0 sp 11 0 16 32 hln 100 PART=TLC081
+a 0 sp 0 0 0 0 hln 100 MODEL=TLC081
+a 0 sp 0 0 0 0 hln 100 TEMPLATE=X^@REFDES %+ %- %V+ %V- %OUT @MODEL
+@pins
+p 2 36 44 hln 70 V- n 40 60 v
+a 0 s 0:13 0 40 60 hln 100 ERC=i
+a 0 s 1 0 49 56 hrn 80 PIN=4
+p 0 72 32 hrn 50 OUT n 90 30 u
+a 0 s 0:13 0 90 30 hln 100 ERC=o
+a 0 s 1 0 83 28 hln 80 PIN=6
+p 2 16 52 hln 100 + n 0 50 h
+a 0 s 0:13 0 0 50 hln 100 ERC=i
+a 0 s 1 0 3 48 hln 80 PIN=3
+p 2 17 12 hln 100 - n 0 10 h
+a 0 s 0:13 0 0 10 hln 100 ERC=i
+a 0 s 1 0 3 8 hln 80 PIN=2
+p 2 35 19 hln 70 V+ n 40 0 d
+a 0 s 0:13 0 40 0 hln 100 ERC=i
+a 0 s 1 0 49 7 hrn 80 PIN=7
+@graphics 90 60 0 10 10
+v 0 11 0
+11 60
+80 30
+11 0
+;
+v 0 40 12
+40 9
+;
+v 0 40 48
+40 50
+;
