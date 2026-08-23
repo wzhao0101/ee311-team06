@@ -6,10 +6,9 @@ Rntc V_TEMP 0 {R25*exp(B*(1/(Tsim+273.15)-1/298.15))}
 B1 R_NTC 0 V={R25*exp(B*(1/(Tsim+273.15)-1/298.15))}
 R1 V_TEMP_FILT V_TEMP 1k
 C1 V_TEMP_FILT 0 100n
-R2 5V V_ref 10K
-R3 V_ref 0 10K
-X§U2 V_ref V_TEMP_FILT 5V 0 T_sens TLC081
-R4 T_sens V_ref 560k
+R_TOP 5V V_ref 10K
+R_BOTTOM V_ref 0 10K
+X§U2 V_ref V_TEMP_FILT 5V 0 OTP_FAULT TLC081
 .param R25 = 10k B=4300
 .step param Tsim 65 75 0.1
 .op
