@@ -1,6 +1,6 @@
-LTspice 24.1.10 for Windows
-Circuit: C:\ee311-team06\Smarts\LTSpice\ovp_ocp_voltage_current_sensing\voltagesensing.net
-Start Time: Sun Aug 23 21:56:26 2026
+LTspice 24.1.9 for Windows
+Circuit: C:\Users\wzhao\Documents\ee311-team06\Smarts\LTSpice\ovp_ocp_voltage_current_sensing\voltagesensing.net
+Start Time: Mon Aug 24 17:21:56 2026
 solver = Normal
 Maximum thread count: 16
 tnom = 27
@@ -12,17 +12,17 @@ Starting Gmin stepping
 Increasing initial diagonal Gmin to 100
 Gmin = 100
 vernier = 0.5
-Gmin = 16.7772
+Gmin = 18.6414
 vernier = 0.25
 vernier = 0.125
 vernier = 0.0625
 vernier = 0.03125
-Gmin = 15.3118
+Gmin = 19.4331
 vernier = 0.015625
 vernier = 0.0078125
 vernier = 0.00390625
 vernier = 0.00195312
-Gmin = 15.2671
+Gmin = 19.5276
 vernier = 0.000976562
 vernier = 0.000488281
 Gmin = 0
@@ -35,9 +35,9 @@ Source Step = 63.6364%
 Source Step = 93.9394%
 Source stepping succeeded in finding the operating point.
 
-Total elapsed time: 1.653 seconds.
+Total elapsed time: 0.669 seconds.
 
 Files loaded:
-C:\ee311-team06\Smarts\LTSpice\ovp_ocp_voltage_current_sensing\voltagesensing.net
-C:\Users\kktjg\OneDrive\Desktop\ee311_smarts\TLC081.mod
+C:\Users\wzhao\Documents\ee311-team06\Smarts\LTSpice\ovp_ocp_voltage_current_sensing\voltagesensing.net
+C:\Users\wzhao\Documents\ee311-team06\Smarts\LTSpice\ovp_ocp_voltage_current_sensing\TLC081.mod
 
