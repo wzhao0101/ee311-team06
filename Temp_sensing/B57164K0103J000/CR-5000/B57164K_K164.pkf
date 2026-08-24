@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "B57164K_K164"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "B57164K_K164")
+        (spec "default")
+    )
+)

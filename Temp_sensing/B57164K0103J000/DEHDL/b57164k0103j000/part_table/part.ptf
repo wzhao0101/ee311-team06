@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'B57164K0103J000'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "ARROW_PART_NUMBER", "ARROW_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "TDK", "B57164K0103J000" (!) = "", "B57164K_K164", "Other", "", "", "B57164K0103J000", "https://www.arrow.com/en/products/b57164k0103j000/epcos-tdk", "NTC thermistors for temperature measurement, lead spacing 5mm, tinned copper", "https://product.tdk.com/system/files/dam/doc/product/sensor/ntc/ntc_element/data_sheet/50/db/ntc/ntc_leaded_disks_k164.pdf", "13 mm"
+END_PART
+
+END.

@@ -8,7 +8,9 @@ R1 V_TEMP_FILT V_TEMP 1k
 C1 V_TEMP_FILT 0 100n
 R_TOP 5V V_ref 10K
 R_BOTTOM V_ref 0 10K
-X§U2 V_ref V_TEMP_FILT 5V 0 OTP_FAULT TLC081
+X§U2 V_ref V_TEMP_FILT 5V 0 OTP_FAULT1 TLC081
+X§U1 V_ref V_TEMP_FILT 5V 0 OTP_FAULT2 LM2903B
+R2 5V OTP_FAULT2 10k
 .param R25 = 10k B=4300
 .step param Tsim 65 75 0.1
 .op
@@ -17,5 +19,6 @@ X§U2 V_ref V_TEMP_FILT 5V 0 OTP_FAULT TLC081
 * V_TEMP = 5 * (Rntc/10k+Rntc)\nRntc = {R25*exp(B*(1/(Tsim+273.15)-1/298.15))}
 * cut off freq ~910Hz\ntime constant ~175us, 5 time constant ~0.88ms\nTermocoolnig time constant ~20s, 0.88ms << 20s, so valid cutoff
 .inc TLC081.mod
+.inc lm393.lib
 .backanno
 .end

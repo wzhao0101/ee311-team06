@@ -1,0 +1,9 @@
+Manufacturer=TDK
+PartNumber=B57164K0103J000
+PartCategory=Thermistor
+PackageCategory=Other
+PinCount=2
+Version=2.1
+Released=2021-07-16 11:16:45
+Downloaded=2026-08-23 07:05:22
+3D=Y
