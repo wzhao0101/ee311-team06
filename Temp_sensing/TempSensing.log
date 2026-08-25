@@ -1,6 +1,6 @@
 LTspice 24.1.9 for Windows
 Circuit: C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
-Start Time: Tue Aug 25 13:12:49 2026
+Start Time: Tue Aug 25 15:06:17 2026
 solver = Normal
 Maximum thread count: 16
 tnom = 27
@@ -15,14 +15,16 @@ Gmin = 2.07126
 vernier = 0.25
 vernier = 0.125
 vernier = 0.0625
-Gmin = 1.72524
+Gmin = 1.75178
 vernier = 0.03125
 vernier = 0.015625
 vernier = 0.0078125
 vernier = 0.00390625
+Gmin = 1.74156
 vernier = 0.00195312
 vernier = 0.000976562
 vernier = 0.000488281
+Gmin = 0
 Gmin = 0
 Gmin stepping failed
 
@@ -33,7 +35,7 @@ Source Step = 63.6364%
 Source Step = 93.9394%
 Source stepping succeeded in finding the operating point.
 
-Total elapsed time: 6.232 seconds.
+Total elapsed time: 6.105 seconds.
 
 Files loaded:
 C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
