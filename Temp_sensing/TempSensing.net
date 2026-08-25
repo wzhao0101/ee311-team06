@@ -5,20 +5,20 @@ V1 5V 0 5
 B1 R_NTC 0 V={R25*exp(B*(1/(V(TEMP_SIM)+273.15)-1/298.15))}
 R1 Vts V_TEMP 1k
 C1 Vts 0 100n
-X§U1 N011 N010 5V 0 OTP_FAULT LM2903B
+X§U1 N016 N014 5V 0 OTP_FAULT LM2903B
 R2 5V OTP_FAULT 10k
 R3 N004 V_ref 10k
 R4 Vvs N004 44k
 R5 N006 VOLT_SIM 10k
 R6 N006 0 44k
 R8 5V OVP_FAULT 10k
-X§U4 N008 V_ref 5V 0 OVP_FAULT LM2903B
+X§U4 N009 V_ref 5V 0 OVP_FAULT LM2903B
 V3 TEMP_SIM 0 67
 B2 V_TEMP 0 I=V(V_TEMP)/(R25*exp(B*(1/(V(TEMP_SIM)+273.15)-1/298.15)))
 X§U2 N006 N004 5V 0 Vvs TLC081
 V2 VOLT_SIM 0 2.7
-R10 N008 0 7.5k
-R11 N008 VOLT_SIM 3.3k
+R10 N009 0 7.5k
+R11 N009 VOLT_SIM 3.3k
 V4 V_ref 0 2.5
 R7 N003 0 1k
 R9 Vis N003 47k
@@ -28,16 +28,33 @@ R14 0 CURR_SIM 10m
 R16 5V OCP_FAULT 10k
 C2 N007 0 0.1µ
 X§U6 N007 Vis 5V 0 OCP_FAULT LM2903B
-I1 CURR_SIM 0 3
+I1 CURR_SIM 0 4.5
 A1 OCP_FAULT OVP_FAULT OTP_FAULT 0 0 0 HW_FAULT 0 OR Vhigh=5 Vlow=0 Ref=2.5
-R15 Vts N010 47k
-R17 N010 0 47k
-R20 5V N011 33K
-R21 N011 P001 10K
+R15 Vts N014 47k
+R17 N014 0 47k
+R20 5V N016 33K
+R21 N016 P001 10K
 R22 P001 0 1K
 R23 5V N007 120k
 R24 N007 0 10k
 X§U3 N005 N003 5V 0 Vis level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+A2 HW_FAULT RESET_ENABLE 0 0 0 0 HW_SAFE 0 SRFLOP Vhigh=5 Vlow=0 Ref=2.5
+V5 N012 0 0
+A3 HW_SAFE FW_SAFE 0 0 0 0 SYSTEM_ENABLE 0 OR Vhigh=5 Vlow=0 Ref=2.5
+V6 FW_SAFE 0 0
+A4 HW_FAULT HW_FAULT 0 0 0 NOT_HW_FAULT 0 0 AND
+A5 NOT_HW_FAULT 0 0 N012 0 0 RESET_ENABLE 0 AND
+M1 VOLT_SIM N015 BOOST_IN BOOST_IN PMOS
+Q1 N015 P002 0 0 NPN
+R18 P002 SYSTEM_ENABLE 10k
+R19 VOLT_SIM N015 100k
+R25 BOOST_IN 0 1k
+.model NPN NPN
+.model PNP PNP
+.lib C:\Users\wzhao\AppData\Local\LTspice\lib\cmp\standard.bjt
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\wzhao\AppData\Local\LTspice\lib\cmp\standard.mos
 .param R25 = 10k B=4300
 * Showing Resistances at different temperature
 * Temperature Resistance Voltage\n25          10k        4.35V\n65          1.81k      2.73V\n70          1.51k      2.51V\n85          0.893k     1.87V
@@ -55,6 +72,12 @@ X§U3 N005 N003 5V 0 Vis level1 Avol=1Meg GBW=10Meg Vos=0 En=0 Enk=0 In=0 Ink=0 
 * Feed this to MCU for ADC Sampling\nAmplified signal to increase ADC resolution
 * OCP Detection
 * PROTECTION CCT
+* HARDWARE SAFETY SIGNAL\n1 = NOT SAFE\n0 = SAFE
+* RESET\n5V -> R = 1\n0V -> R = 0
+* step down voltage (input voltage for LM393 can't go beyond 3V)
+* step down voltage \n(input voltage for LM393 can't go beyond 3V)
+* FW_SAFE simulation\n1 = NOT SAFE\n0 = SAFE
+* Voltage, current, temperature simulation of Supercapacitor
 .lib UniversalOpAmp1.lib
 .backanno
 .end
