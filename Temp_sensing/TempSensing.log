@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
 LTspice 24.1.9 for Windows
 Circuit: C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
-Start Time: Tue Aug 25 18:03:45 2026
-=======
-LTspice 24.1.10 for Windows
-Circuit: C:\ee311-team06\Temp_sensing\TempSensing.net
-Start Time: Tue Aug 25 18:51:27 2026
->>>>>>> Stashed changes
+Start Time: Thu Aug 27 11:44:05 2026
 solver = Normal
 Maximum thread count: 16
 tnom = 27
@@ -15,56 +9,15 @@ method = trap
 ERROR: Node nc_01 is floating and connected to current source I1
 
 Instance "m1:M2": Length shorter than recommended for a level 3 MOSFET.
-Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
-Starting Gmin stepping
-Gmin = 10
-vernier = 0.5
-Gmin = 2.07126
-vernier = 0.25
-vernier = 0.125
-vernier = 0.0625
-<<<<<<< Updated upstream
-Gmin = 1.75178
-=======
-Gmin = 1.72524
->>>>>>> Stashed changes
-vernier = 0.03125
-vernier = 0.015625
-vernier = 0.0078125
-vernier = 0.00390625
-<<<<<<< Updated upstream
-Gmin = 1.74156
-vernier = 0.00195312
-vernier = 0.000976562
-vernier = 0.000488281
-Gmin = 0
-=======
-vernier = 0.00195312
-vernier = 0.000976562
-vernier = 0.000488281
-Gmin = 1.6987
->>>>>>> Stashed changes
-Gmin = 0
-Gmin stepping failed
-
-Starting source stepping with srcstepmethod=0
-Source Step = 3.0303%
-Source Step = 33.3333%
-Source Step = 63.6364%
-Source Step = 93.9394%
-Source stepping succeeded in finding the operating point.
-
-<<<<<<< Updated upstream
-Total elapsed time: 6.460 seconds.
-=======
-Total elapsed time: 10.490 seconds.
->>>>>>> Stashed changes
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 3.762 seconds.
 
 Files loaded:
-C:\ee311-team06\Temp_sensing\TempSensing.net
-C:\Users\kktjg\AppData\Local\LTspice\lib\cmp\standard.bjt
-C:\ee311-team06\Temp_sensing\TLC081.mod
-C:\ee311-team06\Temp_sensing\lm393.lib
-C:\ee311-team06\Temp_sensing\AO3401A.mod
-C:\Users\kktjg\AppData\Local\LTspice\lib\sub\UniversalOpAmp1.lib
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TempSensing.net
+C:\Users\wzhao\AppData\Local\LTspice\lib\cmp\standard.bjt
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\TLC081.mod
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\lm393.lib
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\AO3401A.mod
+C:\Users\wzhao\Documents\ee311-team06\Temp_sensing\ina240a1.lib
+C:\Users\wzhao\AppData\Local\LTspice\lib\sub\UniversalOpAmp1.lib
 

@@ -1,0 +1,143 @@
+(ExpressProject "INA240 Test Circuit"
+  (ProjectVersion "19981106")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\library\ina240a1.olb"
+        (Type "Schematic Library"))
+      (File ".\library\ina240a2.olb"
+        (Type "Schematic Library"))
+      (File ".\library\ina240a3.olb"
+        (Type "Schematic Library"))
+      (File ".\library\ina240a4.olb"
+        (Type "Schematic Library")))
+    (NoModify)
+    (File ".\ina240 test circuit.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+  (Folder "Outputs"
+    (File ".\ina240 test circuit-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile
+         ".\ina240 test circuit-pspicefiles\schematic1\transient.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\ina240 test circuit-pspicefiles\schematic1\transient.sim"
+        (DisplayName "SCHEMATIC1-TRANSIENT")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\ina240a4.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\ina240a4.lib"))
+      (File ".\ina240a3.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\ina240a3.lib"))
+      (File ".\ina240a2.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\ina240a2.lib"))
+      (File ".\ina240a1.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\ina240a1.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (PartMRUSelector
+    (INA240A4
+      (FullPartName "INA240A4.Normal")
+      (LibraryName
+         "C:\USERS\A0282827\DOWNLOADS\PSPICE LIBRARY\INA240\INA240_PSPICE\INA240A4.OLB")
+      (DeviceIndex "0"))
+    (INA240A3
+      (FullPartName "INA240A3.Normal")
+      (LibraryName
+         "C:\USERS\A0282827\DOWNLOADS\PSPICE LIBRARY\INA240\INA240_PSPICE\INA240A3.OLB")
+      (DeviceIndex "0"))
+    (INA240A2
+      (FullPartName "INA240A2.Normal")
+      (LibraryName
+         "C:\USERS\A0282827\DOWNLOADS\PSPICE LIBRARY\INA240\INA240_PSPICE\INA240A2.OLB")
+      (DeviceIndex "0"))
+    (INA240A1
+      (FullPartName "INA240A1.Normal")
+      (LibraryName
+         "C:\USERS\A0282827\DOWNLOADS\PSPICE LIBRARY\INA240\INA240_PSPICE\INA240A1.OLB")
+      (DeviceIndex "0"))
+    (INA293A5
+      (FullPartName "INA293A5.Normal")
+      (LibraryName
+         "C:\MACROMODELS\MODELS\CMS\INA293\RELEASE\APL\INA293_PSPICE\INA293A5.OLB")
+      (DeviceIndex "0"))
+    (INA293A4
+      (FullPartName "INA293A4.Normal")
+      (LibraryName
+         "C:\MACROMODELS\MODELS\CMS\INA293\RELEASE\APL\INA293_PSPICE\INA293A4.OLB")
+      (DeviceIndex "0"))
+    (INA293A3
+      (FullPartName "INA293A3.Normal")
+      (LibraryName
+         "C:\MACROMODELS\MODELS\CMS\INA293\RELEASE\APL\INA293_PSPICE\INA293A3.OLB")
+      (DeviceIndex "0"))
+    (INA293A2
+      (FullPartName "INA293A2.Normal")
+      (LibraryName
+         "C:\MACROMODELS\MODELS\CMS\INA293\RELEASE\APL\INA293_PSPICE\INA293A2.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (ISIN
+      (FullPartName "ISIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_16.6\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (INA293A1
+      (FullPartName "INA293A1.Normal")
+      (LibraryName
+         "C:\MACROMODELS\MODELS\CMS\INA293\RELEASE\APL\INA293_PSPICE\INA293A1.OLB")
+      (DeviceIndex "0")))
+  (LastUsedLibraryBrowseDirectory
+     "C:\Macromodels\Models\CMS\INA293\Release\APL\INA293_PSpice")
+  (MPSSessionName "a0282827")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "PSpice Resources")
+      (Select "Design Resources" ".\ina240 test circuit.dsn"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 0 200 0 452"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 78 1774 78 569")
+        (Scroll "-307 0")
+        (Zoom "68")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\A0282827\DOWNLOADS\PSPICE LIBRARY\INA240\INA240_PSPICE\INA240 TEST CIRCUIT.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
