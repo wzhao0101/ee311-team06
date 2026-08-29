@@ -1,0 +1,52 @@
+LTspice 24.1.10 for Windows
+Circuit: C:\ee311-team06\Temp_sensing\SmartSensing.net
+Start Time: Thu Aug 27 22:25:52 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+ERROR: Node n024 is floating and connected to current source u6:I_IBP
+ERROR: Node nc_01 is floating and connected to current source I1
+
+Instance "m1:M2": Length shorter than recommended for a level 3 MOSFET.
+Instance "m3:M2": Length shorter than recommended for a level 3 MOSFET.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Increasing initial diagonal Gmin to 100
+Gmin = 100
+vernier = 0.5
+Gmin = 16.7772
+vernier = 0.25
+vernier = 0.125
+vernier = 0.0625
+vernier = 0.03125
+Gmin = 15.3118
+vernier = 0.015625
+vernier = 0.0078125
+vernier = 0.00390625
+vernier = 0.00195312
+Gmin = 15.2671
+vernier = 0.000976562
+vernier = 0.000488281
+Gmin = 0
+Gmin stepping failed
+
+Starting source stepping with srcstepmethod=0
+Source Step = 3.0303%
+Source Step = 33.3333%
+Source Step = 63.6364%
+Source Step = 93.9394%
+Source stepping succeeded in finding the operating point.
+
+Total elapsed time: 17.537 seconds.
+
+Files loaded:
+C:\ee311-team06\Temp_sensing\SmartSensing.net
+C:\Users\kktjg\AppData\Local\LTspice\lib\cmp\standard.bjt
+C:\ee311-team06\Temp_sensing\TLC081.mod
+C:\ee311-team06\Temp_sensing\lm393.lib
+C:\ee311-team06\Temp_sensing\AO3401A.mod
+C:\ee311-team06\Temp_sensing\ina240a1.lib
+C:\Users\kktjg\AppData\Local\LTspice\lib\sub\UniversalOpAmp1.lib
+
