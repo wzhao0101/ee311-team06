@@ -71,7 +71,7 @@ Plecs {
   InvalidNetlistFunctionEvaluationMsg "1"
   IncompatibleInitialConditionMsg "2"
   Schematic {
-    Location      [0, 23; 1920, 989]
+    Location      [0, 24; 1283, 681]
     ZoomFactor    1
     SliderPosition [63, 0]
     ShowBrowser   off
@@ -136,16 +136,16 @@ Plecs {
       Flipped       off
       LabelPosition south
       Frame         [-15, -30; 15, 30]
-      Location      [859, 147; 1653, 980]
+      Location      [486, 24; 1280, 703]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAANAA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGIA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABiAP///wAAAAMAAAMaAAAA8vw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAAxoAAABEAP///wAAAxoAAAIqAAAA"
+"G0AQQByAGUAYQAAAAAA/////wAAAM8A////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGEA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABhAP///wAAAAMAAAMaAAAAhfw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAAxoAAABEAP///wAAAxoAAAH9AAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "{\"DefaultSecSize\":104,\"FirstSecSize\":237,\"Labels\":["
-"\"Min\",\"Max\",\"Mean\"],\"VisualIdxs\":[5,6,8]}"
+      HeaderState   "{\"DefaultSecSize\":0,\"FirstSecSize\":237,\"Labels\":[\""
+"Min\",\"Max\",\"Mean\"],\"VisualIdxs\":[5,6,8]}"
       PlotPalettes  "AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -154,7 +154,7 @@ Plecs {
       TimeRange     "0"
       ScrollingMode "1"
       SingleTimeAxis "1"
-      Open          "1"
+      Open          "0"
       Ts            "-1"
       SampleLimit   "0"
       XAxisLabel    "Time / s"
@@ -316,147 +316,6 @@ Plecs {
         Variable      "V"
         Value         "5"
         Show          on
-      }
-    }
-    Component {
-      Type          Netlist
-      Name          "Netlist"
-      Show          off
-      Position      [345, 275]
-      Direction     up
-      Flipped       off
-      LabelPosition south
-      Frame         [-30, -15; 30, 15]
-      IconDisplayCommands ""
-      IconDisplayLanguage "2"
-      IconFrame           on
-      IconOpaque          off
-      IconRotates         on
-      Parameter {
-        Variable      "Netlist"
-        Value         "* BEGIN SPICE MODEL LM358\n"
-"* ON SEMICONDUCTOR NEXT GEN MODEL 9/27/2018\n"
-"* MODEL FEATURES INCLUDE OUTPUT SWING, OUTPUT CURRENT\n"
-"* THROUGH THE SUPPLY RAILS, CLASS B OUTPUT STAGE, OUTPUT\n"
-"* SWING, OPEN LOOP GAIN AND PHASE WITH RL AND CL EFFECTS,\n"
-"* POWER SUPPLY REJECTION WITH FREQUENCY EFFECTS, COMMON\n"
-"* MODE REJECTION WITH FREQUENCY EFFECTS, INPUT VOLTAGE\n"
-"* NOISE WITH 1/F, INPUT CURRENT NOISE, INPUT BIAS AND\n"
-"* OFFSET CURRENT, INPUT COMMON MODE VOLTAGE RANGE, VOS\n"
-"* WITH TEMPERATURE EFFECTS, AND QUIESCENT CURRENT WITH\n"
-"* TEMPERATURE EFFECTS.\n"
-"* MODEL TOTAL SUPPLY VOLTAGE RANGE IS 3 TO 36 V.\n"
-"* MODEL TEMP RANGE IS -55 TO +125 DEG C.\n"
-"* NOTE THAT MODEL IS FUNCTIONAL OVER THIS TEMP RANGE\n"
-"* BUT NOT ALL PARAMETERS TRACK THOSE OF THE REAL PART.\n"
-"* NOTE THAT LIKE THE REAL PART THERE IS NO AB BIAS\n"
-"* IN THE OUTPUT STAGE WHICH UNDER SOME CIRCUMSTANCES\n"
-"* CAUSES HIGH OUTPUT IMPEDANCE AND OR CROSSOVER DELAY\n"
-"* WHICH CAN EFFECT THE PERFORMANCE IN SOME CIRCUITS.\n"
-"* THE COMBINATION OF OUTPUT CURRENT SINK AND NO AB\n"
-"* BIAS WHEN USED WITH A LARGE CLOAD CAN CAUSE SOME\n"
-"* INTERESTING SMALL SIGNAL STEP OVERSHOOTS THAT ARE\n"
-"* LARGER THAN NORMAL AND RAMP LINEARLY RATHER THAN\n"
-"* BEING SHAPED LIKE A CLASSIC OVERSHOOT. THIS HAPPENS\n"
-"* IDENTICALLY WITH THE REAL PART AND THE MODEL.\n"
-"*\n"
-"* PINOUT ORDER +IN -IN +V -V OUT\n"
-"* PINOUT ORDER  1   2   3  4  5\n"
-".SUBCKT LM358 1 2 3 4 5\n"
-"R44 4 6 4E4\n"
-"I1 4 7 0.5E-6\n"
-"Q1 4 8 9 QPI\n"
-"Q2 4 2 10 QPA\n"
-"Q3 9 9 11 QPI\n"
-"Q4 10 10 11 QPI\n"
-"Q5 12 13 4 QNQ\n"
-"Q6 13 13 4 QNQ\n"
-"Q7 4 12 14 QPQ\n"
-"Q8 3 14 6 QNQ\n"
-"Q9 15 6 4 QNQ\n"
-"Q10 3 15 16 QNQ\n"
-"Q11 3 16 17 QNQ\n"
-"R67 17 16 4E4\n"
-"R68 5 17 18\n"
-"Q12 4 15 5 QPQ\n"
-"Q13 15 17 5 QNQ\n"
-"I2 18 3 120E-9\n"
-"I3 19 3 60E-9\n"
-"I4 20 3 1E-6\n"
-"Q14 11 18 3 QPQ\n"
-"Q15 14 19 3 QPQ\n"
-"Q16 5 7 4 QNQ\n"
-"Q17 15 20 3 QPQ\n"
-"C15 21 22 4.8E-12\n"
-"R69 12 21 3\n"
-"R70 12 15 3E9\n"
-"E2 23 8 3 0 -10E-6\n"
-"V51 23 1 1.56E-3\n"
-"I6 3 4 5E-6\n"
-"R71 4 3 4.5E5\n"
-"Q18 12 9 11 QPQ\n"
-"Q19 13 10 11 QPQ\n"
-"C17 12 13 8E-12\n"
-"C18 6 15 1E-12\n"
-"C21 3 24 100E-15\n"
-"R78 11 24 3E5\n"
-"C22 1 2 0.23E-12\n"
-"C23 2 0 0.79E-12\n"
-"C24 1 0 0.79E-12\n"
-"E3 22 0 15 0 2\n"
-"C25 5 0 50E-15\n"
-"Q20 25 25 0 QNQ\n"
-"G1 3 4 VT 0 3E-4\n"
-"I7 0 25 1E-3\n"
-"V53 25 26 0.25\n"
-"R79 0 26 1E6\n"
-"E4 VT 0 27 26 1\n"
-"R80 0 VT 1E6\n"
-"V54 27 0 0.55\n"
-"R81 0 27 1E6\n"
-".MODEL QPQ PNP IKF=3E-3 RC=300 KF=4.8E-17 BR=1\n"
-".MODEL QPA PNP IKF=3E-3 RC=380 IS=1.01E-16 VAF=245 RE=5 RB=1700 BF=300 KF=4.8"
-"E-17 BR=1\n"
-".MODEL QPI PNP IKF=3E-3 RC=380 IS=1.01E-16 VAF=290 RE=5 RB=1700 BF=306 KF=4.8"
-"E-17 BR=1\n"
-".MODEL QNQ NPN IKF=5E-3 RC=25  KF=4.8E-17 BR=1\n"
-".ENDS"
-        Show          off
-      }
-      Terminal {
-        Type          Port
-        Position      [-20, -20]
-        Direction     up
-        Name          "1"
-        NetlistName   "1"
-      }
-      Terminal {
-        Type          Port
-        Position      [-20, 20]
-        Direction     down
-        Name          "2"
-        NetlistName   "2"
-      }
-      Terminal {
-        Type          Port
-        Position      [-10, -20]
-        Direction     up
-        Name          "3"
-        NetlistName   "3"
-      }
-      Terminal {
-        Type          Port
-        Position      [-10, 20]
-        Direction     down
-        Name          "4"
-        NetlistName   "4"
-      }
-      Terminal {
-        Type          Port
-        Position      [0, -20]
-        Direction     up
-        Name          "5"
-        NetlistName   "5"
       }
     }
     Component {
@@ -2597,6 +2456,147 @@ Plecs {
       Flipped       off
       LabelPosition east
     }
+    Component {
+      Type          Netlist
+      Name          "Netlist"
+      Show          off
+      Position      [345, 275]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Frame         [-30, -15; 30, 15]
+      IconDisplayCommands ""
+      IconDisplayLanguage "2"
+      IconFrame           on
+      IconOpaque          off
+      IconRotates         on
+      Parameter {
+        Variable      "Netlist"
+        Value         "* BEGIN SPICE MODEL LM324\n"
+"* ON SEMICONDUCTOR NEXT GEN MODEL 9/27/2018\n"
+"* MODEL FEATURES INCLUDE OUTPUT SWING, OUTPUT CURRENT\n"
+"* THROUGH THE SUPPLY RAILS, CLASS B OUTPUT STAGE, OUTPUT\n"
+"* SWING, OPEN LOOP GAIN AND PHASE WITH RL AND CL EFFECTS,\n"
+"* POWER SUPPLY REJECTION WITH FREQUENCY EFFECTS, COMMON\n"
+"* MODE REJECTION WITH FREQUENCY EFFECTS, INPUT VOLTAGE\n"
+"* NOISE WITH 1/F, INPUT CURRENT NOISE, INPUT BIAS AND\n"
+"* OFFSET CURRENT, INPUT COMMON MODE VOLTAGE RANGE, VOS\n"
+"* WITH TEMPERATURE EFFECTS, AND QUIESCENT CURRENT WITH\n"
+"* TEMPERATURE EFFECTS.\n"
+"* MODEL TOTAL SUPPLY VOLTAGE RANGE IS 3 TO 36 V.\n"
+"* MODEL TEMP RANGE IS -55 TO +125 DEG C.\n"
+"* NOTE THAT MODEL IS FUNCTIONAL OVER THIS TEMP RANGE\n"
+"* BUT NOT ALL PARAMETERS TRACK THOSE OF THE REAL PART.\n"
+"* NOTE THAT LIKE THE REAL PART THERE IS NO AB BIAS\n"
+"* IN THE OUTPUT STAGE WHICH UNDER SOME CIRCUMSTANCES\n"
+"* CAUSES HIGH OUTPUT IMPEDANCE AND OR CROSSOVER DELAY\n"
+"* WHICH CAN EFFECT THE PERFORMANCE IN SOME CIRCUITS.\n"
+"* THE COMBINATION OF OUTPUT CURRENT SINK AND NO AB\n"
+"* BIAS WHEN USED WITH A LARGE CLOAD CAN CAUSE SOME\n"
+"* INTERESTING SMALL SIGNAL STEP OVERSHOOTS THAT ARE\n"
+"* LARGER THAN NORMAL AND RAMP LINEARLY RATHER THAN\n"
+"* BEING SHAPED LIKE A CLASSIC OVERSHOOT. THIS HAPPENS\n"
+"* IDENTICALLY WITH THE REAL PART AND THE MODEL.\n"
+"*\n"
+"* PINOUT ORDER +IN -IN +V -V OUT\n"
+"* PINOUT ORDER  1   2   3  4  5\n"
+".SUBCKT LM324 1 2 3 4 5\n"
+"R44 4 6 4E4\n"
+"I1 4 7 0.5E-6\n"
+"Q1 4 8 9 QPI\n"
+"Q2 4 2 10 QPA\n"
+"Q3 9 9 11 QPI\n"
+"Q4 10 10 11 QPI\n"
+"Q5 12 13 4 QNQ\n"
+"Q6 13 13 4 QNQ\n"
+"Q7 4 12 14 QPQ\n"
+"Q8 3 14 6 QNQ\n"
+"Q9 15 6 4 QNQ\n"
+"Q10 3 15 16 QNQ\n"
+"Q11 3 16 17 QNQ\n"
+"R67 17 16 4E4\n"
+"R68 5 17 18\n"
+"Q12 4 15 5 QPQ\n"
+"Q13 15 17 5 QNQ\n"
+"I2 18 3 120E-9\n"
+"I3 19 3 60E-9\n"
+"I4 20 3 1E-6\n"
+"Q14 11 18 3 QPQ\n"
+"Q15 14 19 3 QPQ\n"
+"Q16 5 7 4 QNQ\n"
+"Q17 15 20 3 QPQ\n"
+"C15 21 22 4.8E-12\n"
+"R69 12 21 3\n"
+"R70 12 15 3E9\n"
+"E2 23 8 3 0 -10E-6\n"
+"V51 23 1 1.56E-3\n"
+"I6 3 4 5E-6\n"
+"R71 4 3 4.5E5\n"
+"Q18 12 9 11 QPQ\n"
+"Q19 13 10 11 QPQ\n"
+"C17 12 13 8E-12\n"
+"C18 6 15 1E-12\n"
+"C21 3 24 100E-15\n"
+"R78 11 24 3E5\n"
+"C22 1 2 0.23E-12\n"
+"C23 2 0 0.79E-12\n"
+"C24 1 0 0.79E-12\n"
+"E3 22 0 15 0 2\n"
+"C25 5 0 50E-15\n"
+"Q20 25 25 0 QNQ\n"
+"G1 3 4 VT 0 3E-4\n"
+"I7 0 25 1E-3\n"
+"V53 25 26 0.25\n"
+"R79 0 26 1E6\n"
+"E4 VT 0 27 26 1\n"
+"R80 0 VT 1E6\n"
+"V54 27 0 0.55\n"
+"R81 0 27 1E6\n"
+".MODEL QPQ PNP IKF=3E-3 RC=300 KF=4.8E-17 BR=1\n"
+".MODEL QPA PNP IKF=3E-3 RC=380 IS=1.01E-16 VAF=245 RE=5 RB=1700 BF=300 KF=4.8"
+"E-17 BR=1\n"
+".MODEL QPI PNP IKF=3E-3 RC=380 IS=1.01E-16 VAF=290 RE=5 RB=1700 BF=306 KF=4.8"
+"E-17 BR=1\n"
+".MODEL QNQ NPN IKF=5E-3 RC=25  KF=4.8E-17 BR=1\n"
+".ENDS"
+        Show          off
+      }
+      Terminal {
+        Type          Port
+        Position      [-20, -20]
+        Direction     up
+        Name          "1"
+        NetlistName   "1"
+      }
+      Terminal {
+        Type          Port
+        Position      [-20, 20]
+        Direction     down
+        Name          "2"
+        NetlistName   "2"
+      }
+      Terminal {
+        Type          Port
+        Position      [-10, -20]
+        Direction     up
+        Name          "3"
+        NetlistName   "3"
+      }
+      Terminal {
+        Type          Port
+        Position      [-10, 20]
+        Direction     down
+        Name          "4"
+        NetlistName   "4"
+      }
+      Terminal {
+        Type          Port
+        Position      [0, -20]
+        Direction     up
+        Name          "5"
+        NetlistName   "5"
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "R13"
@@ -2692,7 +2692,7 @@ Plecs {
       Type          Signal
       SrcComponent  "Vo"
       SrcTerminal   3
-      Points        [580, 190; 580, 435; 185, 435; 185, 385]
+      Points        [580, 190; 580, 435; 185, 435]
       DstComponent  "Scope"
       DstTerminal   2
     }
