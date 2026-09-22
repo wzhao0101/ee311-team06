@@ -1,0 +1,25 @@
+LTspice 24.1.10 for Windows
+Circuit: C:\ee311-team06\Temp_sensing\SmartSensing_.net
+Start Time: Fri Aug 28 08:35:32 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+ERROR: Node n026 is floating and connected to current source u6:I_IBP
+ERROR: Node nc_01 is floating and connected to current source I1
+
+Instance "m1:M2": Length shorter than recommended for a level 3 MOSFET.
+Instance "m3:M2": Length shorter than recommended for a level 3 MOSFET.
+Direct Newton iteration for .op point succeeded.
+Total elapsed time: 17.549 seconds.
+
+Files loaded:
+C:\ee311-team06\Temp_sensing\SmartSensing_.net
+C:\Users\kktjg\AppData\Local\LTspice\lib\cmp\standard.bjt
+C:\ee311-team06\Temp_sensing\TLC081.mod
+C:\ee311-team06\Temp_sensing\lm393.lib
+C:\ee311-team06\Temp_sensing\AO3401A.mod
+C:\ee311-team06\Temp_sensing\ina240a1.lib
+C:\Users\kktjg\AppData\Local\LTspice\lib\sub\UniversalOpAmp1.lib
+

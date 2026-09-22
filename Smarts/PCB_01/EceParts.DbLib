@@ -1,0 +1,44 @@
+[OutputDatabaseLinkFile]
+Version=1.1
+[DatabaseLinks]
+ConnectionString=Provider=MICROSOFT.ACE.OLEDB.12.0;Data Source=C:\Users\Sam\Downloads\ECSE_STORE.xlsx;Extended Properties="Excel 8.0;HDR=Yes;IMEX=1"
+AddMode=3
+RemoveMode=1
+UpdateMode=2
+ViewMode=0
+LeftQuote=[
+RightQuote=]
+QuoteTableNames=1
+UseTableSchemaName=0
+DefaultColumnType=VARCHAR(255)
+LibraryDatabaseType=Microsoft Excel
+LibraryDatabasePath=..\..\..\..\Users\Sam\Downloads\ECSE_STORE.xlsx
+DatabasePathRelative=1
+TopPanelCollapsed=0
+LibrarySearchPath=
+OrcadMultiValueDelimiter=,
+SearchSubDirectories=0
+SchemaName=
+LastFocusedTable=query$
+[Table1]
+SchemaName=
+TableName=query$
+Enabled=False
+UserWhere=0
+UserWhereText=
+BrowserOrder_Sorting=
+BrowserOrder_Grouping=
+BrowserOrder_Visible=Item Type0=71|Title0=72|Description0=226|Value0=83|Status0=74|Comment0=97|Size/Package0=100|Assembly Method0=114|Voltage/Current0=106|Manufactuer0=182|Manufacturer-PN0=137|Datasheet Link0=578|Supplier10=109|Supplier1-PN0=130|Supplier20=109|Supplier2-PN0=124|Component Type0=129|Schematic-Name0=115|Footprint-Name0=130|Category0=89|Alternative-PN0=110|Review-date0=86|Path0=379
+[Table2]
+SchemaName=
+TableName=query$query
+Enabled=False
+UserWhere=0
+UserWhereText=
+BrowserOrder_Sorting=
+BrowserOrder_Grouping=
+BrowserOrder_Visible=Title0=72|Description0=226|Value0=83|Status0=74|Comment0=97|Size/Package0=100|Assembly Method0=114|Voltage/Current0=106|Manufactuer0=182|Manufacturer-PN0=137|Datasheet Link0=578|Supplier10=109|Supplier1-PN0=130|Supplier20=109|Supplier2-PN0=124|Component Type0=129|Schematic-Name0=115|Footprint-Name0=130|Category0=89|Alternative-PN0=110|Review-date0=86|Item Type0=71|Path0=379
+[FieldMap1]
+Options=FieldName=query$.Size/Package|TableNameOnly=query$|FieldNameOnly=Size/Package|FieldType=0|ParameterName=Size/Package|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0
+[FieldMap2]
+Options=FieldName=query$query.Description|TableNameOnly=query$query|FieldNameOnly=Description|FieldType=1|ParameterName=[Description]|VisibleOnAdd=False|AddMode=0|RemoveMode=0|UpdateMode=0

@@ -86,7 +86,7 @@ Plecs {
       LabelPosition east
       Parameter {
         Variable      "V"
-        Value         "3.5"
+        Value         "2.5"
         Show          on
       }
     }
@@ -216,7 +216,7 @@ Plecs {
       LabelPosition west
       Parameter {
         Variable      "C"
-        Value         "100e-6"
+        Value         "220e-6"
         Show          on
       }
       Parameter {
@@ -385,7 +385,7 @@ Plecs {
       Frame         [-10, -10; 10, 10]
       Parameter {
         Variable      "Value"
-        Value         "0.3"
+        Value         "0.5"
         Show          on
       }
       Parameter {
