@@ -126,11 +126,10 @@ int main(void)
     while (1)
     {
         adc_value = adc_read();
-
         uart_send_string("ADC = ");
         uart_send_uint16(adc_value);
 		
-		uart_send_string("Voltage = ");
+		uart_send_string(" Voltage = ");
 		uart_send_voltage(adc_value);
 
         uart_send_string("\r\n");
