@@ -1,0 +1,117 @@
+(ExpressProject "TLVx888_Test_Circuit"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "25.1 P001 (4349869)  [9/14/2025]-[11/06/25]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\library\tlv916x.olb"
+        (Type "Schematic Library")))
+    ("Allegro Netlist Directory" "allegro")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "61215")
+    (NoModify)
+    (File ".\tlv916x_test_circuit.dsn"
+      (Type "Schematic Design")
+      (DisplayName ".\tlv916x_test_circuit.DSN"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (Display_Online_DRC_Results "FALSE")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (Board_sim_option "VHDL_flow"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\tlv916x_test_circuit-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")
+      (DisplayName
+         ".\tlv916x_test_circuit-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\tlv916x_test_circuit-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-TRAN")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\tlv916x_test_circuit-pspicefiles\schematic1\ac.sim"
+        (DisplayName "SCHEMATIC1-AC")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\tlv916x_test_circuit-pspicefiles\schematic1\dc.sim"
+        (DisplayName "SCHEMATIC1-DC")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\tlv916x_test_circuit-pspicefiles\schematic1\tran.sim"))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\tlv916x.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\tlv916x.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (Folder "Logs")
+  (PartMRUSelector
+    (TLV916x
+      (FullPartName "TLV916x.Convert")
+      (LibraryName
+         "C:\USERS\A0870489\DOCUMENTS\REPOS\HVA SPICE MODEL\GPAMPS\TLV916X\V1P1\TLV916X.OLB")
+      (DeviceIndex "0"))
+    (TLV9162
+      (FullPartName "TLV9162.Convert")
+      (LibraryName
+         "C:\USERS\A0870489\DOCUMENTS\REPOS\HVA SPICE MODEL\GPAMPS\TLV916X\V1P1\TLV9162.OLB")
+      (DeviceIndex "0"))
+    (0
+      (LibraryName "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (C
+      (FullPartName "C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (TLVX888
+      (FullPartName "TLVX888.Convert")
+      (LibraryName
+         "C:\USERS\A0870489\DOCUMENTS\0_PSPICE\0_DEVELOPMENT\TLVX888_SPEC\DESIGN CIRCUITS\V2_RELEASE\0_PSPICE\TLVX888.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\tlv916x_test_circuit.dsn")
+      (Path "Design Resources" "Library")
+      (Path "Design Resources" "Library" ".\library\tlv916x.olb")
+      (Path "Outputs")
+      (Select "Design Resources" ".\tlv916x_test_circuit.dsn"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 333 0 1000"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 1541 24 885")
+        (Scroll "-204 -7")
+        (Zoom "113")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\A0870489\DOCUMENTS\REPOS\HVA SPICE MODEL\GPAMPS\TLV916X\V1P1\PSPICE\TLV916X_TEST_CIRCUIT.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (MPSSessionName "a0870489"))
