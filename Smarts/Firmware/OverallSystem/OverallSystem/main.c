@@ -27,9 +27,13 @@ int main(void)
 	touch_init();
 	protection_init();
 
+
 	while (1)
 	{
-		// Update OVP / OTP and fault outputs
+		// -------------------------
+		// UPDATE PROTECTION
+		// -------------------------
+
 		protection_update();
 
 
@@ -37,8 +41,10 @@ int main(void)
 		// TOUCH
 		// -------------------------
 
+		touch_update();
+
 		uint16_t touch_count =
-		touch_measure_average();
+		touch_get_count();
 
 
 		// -------------------------
@@ -70,7 +76,7 @@ int main(void)
 
 
 		// -------------------------
-		// UART
+		// UART OUTPUT
 		// -------------------------
 
 		uart_send_string("Vvs = ");
@@ -98,12 +104,4 @@ int main(void)
 		_delay_ms(250);
 	}
 }
-
-
-
-
-
-
-
-
 

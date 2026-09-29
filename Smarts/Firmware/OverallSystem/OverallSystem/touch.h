@@ -14,8 +14,10 @@
 void touch_init(void);
 uint16_t touch_measure_raw(void);
 uint16_t touch_measure_average(void);
+
 void touch_update(void);
 
 uint8_t touch_get_state(void);
+uint16_t touch_get_count(void);
 
 #endif /* TOUCH_H_ */
