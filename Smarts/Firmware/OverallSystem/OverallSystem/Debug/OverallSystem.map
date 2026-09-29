@@ -768,7 +768,7 @@ END GROUP
  .debug_abbrev  0x00000a9b      0x1af uart.o
  .debug_abbrev  0x00000c4a      0x182 voltage.o
 
-.debug_line     0x00000000      0xd1b
+.debug_line     0x00000000      0xd1c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x255 main.o
@@ -776,7 +776,7 @@ END GROUP
  .debug_line    0x000004a6      0x27c temperature.o
  .debug_line    0x00000722      0x26a touch.o
  .debug_line    0x0000098c      0x158 uart.o
- .debug_line    0x00000ae4      0x237 voltage.o
+ .debug_line    0x00000ae4      0x238 voltage.o
 
 .debug_frame    0x00000000      0x2d8
  *(.debug_frame)

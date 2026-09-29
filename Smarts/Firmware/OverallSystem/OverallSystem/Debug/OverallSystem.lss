@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000dcc  00000000  00000000  00002922  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000d1b  00000000  00000000  000036ee  2**0
+  8 .debug_line   00000d1c  00000000  00000000  000036ee  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000002d8  00000000  00000000  0000440c  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -1245,7 +1245,7 @@ void uart_send_float(float value, uint8_t decimal_places)
      630:	08 95       	ret
 
 00000632 <voltage_init>:
-
+   ========================================================= */
 
 void voltage_init(void)
 {
@@ -1255,13 +1255,13 @@ void voltage_init(void)
      634:	8e 7f       	andi	r24, 0xFE	; 254
      636:	87 b9       	out	0x07, r24	; 7
 
-    // Disable internal pull-up
+    // Disable internal pull-up on PC0
     PORTC &= ~(1 << PC0);
      638:	88 b1       	in	r24, 0x08	; 8
      63a:	8e 7f       	andi	r24, 0xFE	; 254
      63c:	88 b9       	out	0x08, r24	; 8
 
-    // AVcc reference, ADC0 selected
+    // AVcc reference, initially ADC0
     ADMUX = (1 << REFS0);
      63e:	80 e4       	ldi	r24, 0x40	; 64
      640:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
@@ -1275,16 +1275,19 @@ void voltage_init(void)
      64a:	08 95       	ret
 
 0000064c <voltage_read_adc>:
-
+   ========================================================= */
 
 uint16_t voltage_read_adc(void)
 {
-    // AVcc reference, select ADC0
+    // AVcc reference, ADC0 selected
     ADMUX = (1 << REFS0);
      64c:	80 e4       	ldi	r24, 0x40	; 64
      64e:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
 
-    // Dummy conversion after ADC channel switching
+    /*
+     * Dummy conversion because ADC channels are being switched
+     * between Vvs and Vts elsewhere in the program.
+     */
     ADCSRA |= (1 << ADSC);
      652:	ea e7       	ldi	r30, 0x7A	; 122
      654:	f0 e0       	ldi	r31, 0x00	; 0
@@ -1298,6 +1301,7 @@ uint16_t voltage_read_adc(void)
      662:	fc cf       	rjmp	.-8      	; 0x65c <voltage_read_adc+0x10>
     {
     }
+
 
     // Actual conversion
     ADCSRA |= (1 << ADSC);
@@ -1321,7 +1325,9 @@ uint16_t voltage_read_adc(void)
      67e:	08 95       	ret
 
 00000680 <voltage_read_average>:
-
+/* =========================================================
+   AVERAGE ADC0
+   ========================================================= */
 
 uint16_t voltage_read_average(void)
 {
@@ -1334,8 +1340,8 @@ uint16_t voltage_read_average(void)
 
     for (uint8_t i = 0; i < 8; i++)
      68a:	c0 e0       	ldi	r28, 0x00	; 0
-}
-
+   AVERAGE ADC0
+   ========================================================= */
 
 uint16_t voltage_read_average(void)
 {
@@ -1368,8 +1374,8 @@ uint16_t voltage_read_average(void)
      6ac:	cf 5f       	subi	r28, 0xFF	; 255
      6ae:	c8 30       	cpi	r28, 0x08	; 8
      6b0:	88 f3       	brcs	.-30     	; 0x694 <voltage_read_average+0x14>
-    {
         total += voltage_read_adc();
+
         _delay_ms(1);
     }
 
@@ -1393,7 +1399,8 @@ uint16_t voltage_read_average(void)
      6d0:	08 95       	ret
 
 000006d2 <voltage_convert_adc_to_vvs>:
-
+   ADC COUNT -> Vvs
+   ========================================================= */
 
 float voltage_convert_adc_to_vvs(uint16_t adc_value)
 {
@@ -1416,39 +1423,40 @@ float voltage_convert_adc_to_vvs(uint16_t adc_value)
      6f4:	08 95       	ret
 
 000006f6 <voltage_convert_vvs_to_supercap>:
-     * Therefore:
+     * Rearranged:
      *
-     * Vsupercap = (Vvs + 9.7917) / 4.0541
+     * Vsupercap = (Vvs + 9.6034) / 3.9987
      */
 
-    return (vvs + 9.7917f) / 4.0541f;
-     6f6:	2e ec       	ldi	r18, 0xCE	; 206
-     6f8:	3a ea       	ldi	r19, 0xAA	; 170
-     6fa:	4c e1       	ldi	r20, 0x1C	; 28
+    return (vvs + 9.6034f) / 3.9987f;
+     6f6:	27 e8       	ldi	r18, 0x87	; 135
+     6f8:	37 ea       	ldi	r19, 0xA7	; 167
+     6fa:	49 e1       	ldi	r20, 0x19	; 25
      6fc:	51 e4       	ldi	r21, 0x41	; 65
      6fe:	0e 94 98 03 	call	0x730	; 0x730 <__addsf3>
-     702:	20 e3       	ldi	r18, 0x30	; 48
-     704:	3b eb       	ldi	r19, 0xBB	; 187
-     706:	41 e8       	ldi	r20, 0x81	; 129
+     702:	23 eb       	ldi	r18, 0xB3	; 179
+     704:	3a ee       	ldi	r19, 0xEA	; 234
+     706:	4f e7       	ldi	r20, 0x7F	; 127
      708:	50 e4       	ldi	r21, 0x40	; 64
      70a:	0e 94 04 04 	call	0x808	; 0x808 <__divsf3>
 }
      70e:	08 95       	ret
 
 00000710 <ovp_update>:
-
+   OVER-VOLTAGE PROTECTION
+   ========================================================= */
 
 void ovp_update(void)
 {
     uint16_t adc_value = voltage_read_average();
      710:	0e 94 40 03 	call	0x680	; 0x680 <voltage_read_average>
-     * Vsupercap = 3.5 V
-     * Vvs        = 4.40 V
-     * ADC        ? 900
+     *
+     * Therefore trip when Vvs reaches approximately
+     * the level corresponding to 3.5 V supercap voltage.
      */
 
     if (adc_value >= OVP_ADC_THRESHOLD)
-     714:	84 38       	cpi	r24, 0x84	; 132
+     714:	82 38       	cpi	r24, 0x82	; 130
      716:	93 40       	sbci	r25, 0x03	; 3
      718:	20 f0       	brcs	.+8      	; 0x722 <ovp_update+0x12>
     {
@@ -1464,7 +1472,7 @@ void ovp_update(void)
      726:	08 95       	ret
 
 00000728 <ovp_get_fault>:
-
+   ========================================================= */
 
 uint8_t ovp_get_fault(void)
 {
