@@ -4,6 +4,10 @@
 
 main.c
 
+protection.c
+
+temperature.c
+
 touch.c
 
 uart.c
