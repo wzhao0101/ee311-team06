@@ -13,58 +13,100 @@
 
 
 /*
- * ADC reference = 5.0 V
+ * =========================================================
+ * FIRMWARE PROTECTION THRESHOLDS
+ * =========================================================
  */
 
 
 /*
- * OVP:
+ * OVP
  *
- * Vsupercap = 3.5 V
- * measured Vvs ? 4.39 V
+ * Target firmware trip:
+ * Vsupercap = 3.50 V
  *
- * ADC = 4.39 / 5 * 1023
- *     ? 898
+ * Measured Vvs at 3.50 V:
+ * approximately 4.39 V
+ *
+ * ADC count:
+ * 4.39 / 5.0 * 1023 ? 898
+ *
+ * Use hysteresis so OVP does not chatter around 3.5 V.
  */
-#define OVP_ADC_THRESHOLD          898
+
+#define OVP_TRIP_ADC     893
+#define OVP_RESET_ADC    885
 
 
 /*
- * OTP firmware threshold = 65 C
+ * OTP
  *
- * 65 C measured Vts ? 2.74 V
+ * Firmware trip target:
+ * 65 C
  *
- * ADC = 2.74 / 5 * 1023
- *     ? 561
+ * Measured:
+ * 65 C -> Vts ? 2.74 V
  *
- * Higher temperature -> LOWER ADC.
+ * ADC:
+ * 2.74 / 5.0 * 1023 ? 561
+ *
+ * Higher temperature -> lower Vts -> lower ADC count.
  */
-#define OTP_ADC_THRESHOLD          561
+
+#define OTP_TRIP_ADC     561
+
+/*
+ * Reset threshold is slightly higher,
+ * meaning the system must cool down before OTP clears.
+ *
+ * This value can be calibrated later.
+ */
+
+#define OTP_RESET_ADC    575
 
 
 /*
- * Current:
+ * BOOST OCP
  *
- * Vis = I + 2.5
+ * Temporary threshold based on:
  *
- * Boost FW OCP = +2.4 A
+ * Vis = 2.5 + I
+ *
+ * Boost FW threshold = +2.4 A
  *
  * Vis = 4.9 V
  *
  * ADC ? 1003
+ *
+ * We can update this later when you provide
+ * the final current-sensing information.
  */
-#define BOOST_OCP_ADC_THRESHOLD    1003
+
+#define BOOST_OCP_TRIP_ADC    1003
 
 
 /*
- * Charger FW OCP = -0.4 A
+ * CHARGER OCP
  *
- * Vis = 2.1 V
+ * Temporary threshold based on:
+ *
+ * Charger FW threshold = -0.4 A
+ *
+ * Vis = 2.5 - 0.4
+ *     = 2.1 V
  *
  * ADC ? 430
  */
-#define CHARGER_OCP_ADC_THRESHOLD  430
 
+#define CHARGER_OCP_TRIP_ADC  430
+
+
+
+/*
+ * =========================================================
+ * FAULT STATES
+ * =========================================================
+ */
 
 static uint8_t ovp_fault = 0;
 static uint8_t otp_fault = 0;
@@ -73,70 +115,149 @@ static uint8_t boost_ocp_fault = 0;
 static uint8_t charger_ocp_fault = 0;
 
 
+/*
+ * Store the latest averaged ADC values.
+ *
+ * These values are also used by main.c
+ * for UART diagnostics.
+ */
+
 static uint16_t latest_vvs_adc = 0;
 static uint16_t latest_vis_adc = 0;
 static uint16_t latest_vts_adc = 0;
 
 
+
+/*
+ * =========================================================
+ * INITIALISATION
+ * =========================================================
+ */
+
 void protection_init(void)
 {
-    // PC3 = CHARGER_FAULT_FW
-    DDRC |= (1 << PC3);
+    /*
+     * PC3 = CHARGER_FAULT_FW
+     * PC4 = BOOST_FAULT_FW
+     */
 
-    // PC4 = BOOST_FAULT_FW
+    DDRC |= (1 << PC3);
     DDRC |= (1 << PC4);
 
 
-    // Initially no firmware fault
+    // Start with both fault outputs LOW
     PORTC &= ~(1 << PC3);
     PORTC &= ~(1 << PC4);
 }
 
 
+
+/*
+ * =========================================================
+ * FAST PROTECTION UPDATE
+ * =========================================================
+ */
+
 void protection_update_fast(void)
 {
-    // -------------------------
-    // FAST SENSOR READS
-    // -------------------------
+    /*
+     * -----------------------------------------------------
+     * READ SENSOR CHANNELS
+     * -----------------------------------------------------
+     *
+     * ADC0 = Vvs
+     * ADC1 = Vis
+     * ADC2 = Vts
+     *
+     * Each uses the 4-sample fast average.
+     *
+     * No intentional delay is used here.
+     */
 
-    latest_vvs_adc = adc_read(0);    // PC0
-    latest_vis_adc = adc_read(1);    // PC1
-    latest_vts_adc = adc_read(2);    // PC2
+    latest_vvs_adc =
+        adc_read_fast_average(0);
+
+    latest_vis_adc =
+        adc_read_fast_average(1);
+
+    latest_vts_adc =
+        adc_read_fast_average(2);
 
 
-    // -------------------------
-    // OVP
-    // -------------------------
 
-    if (latest_vvs_adc >= OVP_ADC_THRESHOLD)
+    /*
+     * -----------------------------------------------------
+     * OVP
+     * -----------------------------------------------------
+     *
+     * Hysteresis:
+     *
+     * If currently SAFE:
+     *     trip when ADC >= 898
+     *
+     * If currently in FAULT:
+     *     remain faulted until ADC <= 890
+     */
+
+    if (ovp_fault == 0)
     {
-        ovp_fault = 1;
+        if (latest_vvs_adc >= OVP_TRIP_ADC)
+        {
+            ovp_fault = 1;
+        }
     }
     else
     {
-        ovp_fault = 0;
+        if (latest_vvs_adc <= OVP_RESET_ADC)
+        {
+            ovp_fault = 0;
+        }
     }
 
 
-    // -------------------------
-    // OTP
-    // -------------------------
 
-    if (latest_vts_adc <= OTP_ADC_THRESHOLD)
+    /*
+     * -----------------------------------------------------
+     * OTP
+     * -----------------------------------------------------
+     *
+     * Higher temperature gives lower Vts.
+     *
+     * Trip:
+     *     ADC <= 561
+     *
+     * Reset:
+     *     ADC >= 575
+     */
+
+    if (otp_fault == 0)
     {
-        otp_fault = 1;
+        if (latest_vts_adc <= OTP_TRIP_ADC)
+        {
+            otp_fault = 1;
+        }
     }
     else
     {
-        otp_fault = 0;
+        if (latest_vts_adc >= OTP_RESET_ADC)
+        {
+            otp_fault = 0;
+        }
     }
 
 
-    // -------------------------
-    // BOOST OCP
-    // -------------------------
 
-    if (latest_vis_adc >= BOOST_OCP_ADC_THRESHOLD)
+    /*
+     * -----------------------------------------------------
+     * BOOST OCP
+     * -----------------------------------------------------
+     *
+     * For now:
+     *
+     * +2.4 A -> Vis ? 4.9 V
+     */
+
+    if (latest_vis_adc >= BOOST_OCP_TRIP_ADC)
     {
         boost_ocp_fault = 1;
     }
@@ -146,11 +267,18 @@ void protection_update_fast(void)
     }
 
 
-    // -------------------------
-    // CHARGER OCP
-    // -------------------------
 
-    if (latest_vis_adc <= CHARGER_OCP_ADC_THRESHOLD)
+    /*
+     * -----------------------------------------------------
+     * CHARGER OCP
+     * -----------------------------------------------------
+     *
+     * For now:
+     *
+     * -0.4 A -> Vis ? 2.1 V
+     */
+
+    if (latest_vis_adc <= CHARGER_OCP_TRIP_ADC)
     {
         charger_ocp_fault = 1;
     }
@@ -160,13 +288,28 @@ void protection_update_fast(void)
     }
 
 
-    // -------------------------
-    // BOOST FAULT OUTPUT
-    // -------------------------
 
-    if (ovp_fault ||
-        otp_fault ||
-        boost_ocp_fault)
+    /*
+     * -----------------------------------------------------
+     * BOOST FAULT OUTPUT
+     * -----------------------------------------------------
+     *
+     * BOOST_FAULT_FW goes HIGH if:
+     *
+     * OVP
+     * OR
+     * OTP
+     * OR
+     * BOOST OCP
+     */
+
+    if (
+        ovp_fault
+        ||
+        otp_fault
+        ||
+        boost_ocp_fault
+       )
     {
         PORTC |= (1 << PC4);
     }
@@ -176,13 +319,28 @@ void protection_update_fast(void)
     }
 
 
-    // -------------------------
-    // CHARGER FAULT OUTPUT
-    // -------------------------
 
-    if (ovp_fault ||
-        otp_fault ||
-        charger_ocp_fault)
+    /*
+     * -----------------------------------------------------
+     * CHARGER FAULT OUTPUT
+     * -----------------------------------------------------
+     *
+     * CHARGER_FAULT_FW goes HIGH if:
+     *
+     * OVP
+     * OR
+     * OTP
+     * OR
+     * CHARGER OCP
+     */
+
+    if (
+        ovp_fault
+        ||
+        otp_fault
+        ||
+        charger_ocp_fault
+       )
     {
         PORTC |= (1 << PC3);
     }
@@ -192,6 +350,13 @@ void protection_update_fast(void)
     }
 }
 
+
+
+/*
+ * =========================================================
+ * FAULT GETTERS
+ * =========================================================
+ */
 
 uint8_t protection_get_ovp(void)
 {
@@ -216,6 +381,13 @@ uint8_t protection_get_charger_ocp(void)
     return charger_ocp_fault;
 }
 
+
+
+/*
+ * =========================================================
+ * ADC GETTERS
+ * =========================================================
+ */
 
 uint16_t protection_get_vvs_adc(void)
 {

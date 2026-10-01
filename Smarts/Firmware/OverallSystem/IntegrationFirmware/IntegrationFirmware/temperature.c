@@ -26,7 +26,8 @@ float temperature_vts_to_celsius(float vts)
     /*
      * Board calibration:
      *
-     * 25 C -> 4.37 V
+     * 14 C -> 4.377V
+	   25 C -> 4.37 V
      * 65 C -> 2.74 V
      * 70 C -> 2.51 V
      * 85 C -> 1.78 V

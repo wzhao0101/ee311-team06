@@ -15,37 +15,81 @@
 
 void adc_init(void)
 {
-	// AVcc reference
-	ADMUX = (1 << REFS0);
+    // AVcc used as ADC reference
+    ADMUX = (1 << REFS0);
 
-	// Enable ADC
-	// Prescaler = 128
-	// 16 MHz / 128 = 125 kHz
-	ADCSRA = (1 << ADEN)
-	| (1 << ADPS2)
-	| (1 << ADPS1)
-	| (1 << ADPS0);
+    /*
+     * Enable ADC
+     *
+     * Prescaler = 128
+     *
+     * 16 MHz / 128 = 125 kHz ADC clock
+     */
+    ADCSRA = (1 << ADEN)
+           | (1 << ADPS2)
+           | (1 << ADPS1)
+           | (1 << ADPS0);
 }
 
 
 uint16_t adc_read(uint8_t channel)
 {
-	// Keep AVcc reference, select ADC channel 0-7
-	ADMUX = (1 << REFS0) | (channel & 0x07);
+    /*
+     * Keep AVcc as reference
+     * and select ADC0 - ADC7.
+     */
+    ADMUX = (1 << REFS0)
+          | (channel & 0x07);
 
-	// Dummy conversion after switching channel
-	ADCSRA |= (1 << ADSC);
 
-	while (ADCSRA & (1 << ADSC))
-	{
-	}
+    /*
+     * Dummy conversion.
+     *
+     * Because we switch between:
+     *
+     * ADC0 = Vvs
+     * ADC1 = Vis
+     * ADC2 = Vts
+     *
+     * discard the first conversion after changing channel.
+     */
 
-	// Actual conversion
-	ADCSRA |= (1 << ADSC);
+    ADCSRA |= (1 << ADSC);
 
-	while (ADCSRA & (1 << ADSC))
-	{
-	}
+    while (ADCSRA & (1 << ADSC))
+    {
+    }
 
-	return ADC;
+
+    // Actual conversion
+    ADCSRA |= (1 << ADSC);
+
+    while (ADCSRA & (1 << ADSC))
+    {
+    }
+
+
+    return ADC;
+}
+
+
+uint16_t adc_read_fast_average(uint8_t channel)
+{
+    uint32_t total = 0;
+
+
+    /*
+     * Take 8 samples.
+     *
+     * No _delay_ms() here because this function
+     * is used by the fast protection path.
+     */
+
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        total += adc_read(channel);
+    }
+
+
+    return (uint16_t)(total / 8);
 }
