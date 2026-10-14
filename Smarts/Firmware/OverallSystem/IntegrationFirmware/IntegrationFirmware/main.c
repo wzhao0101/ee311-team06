@@ -19,6 +19,7 @@
 #include "temperature.h"
 #include "soe.h"
 #include "protection.h"
+#include "reset.h"
 
 
 volatile uint32_t system_ms = 0;
@@ -69,6 +70,8 @@ int main(void)
     touch_init();
 
     protection_init();
+	
+	reset_init();
 
     timer0_init();
 
@@ -92,6 +95,20 @@ int main(void)
          */
 
         protection_update_fast();
+		
+        /*
+         * ========================================
+         * RESET LOGIC
+         * ========================================
+         *
+         * Non-blocking.
+         *
+         * If a fault previously occurred and
+         * all protection flags are now clear,
+         * generate a 10 ms HIGH pulse on PD0.
+         */
+
+        reset_update(system_ms);
 
 
         /*

@@ -10,6 +10,8 @@ main.c
 
 protection.c
 
+reset.c
+
 soe.c
 
 temperature.c
