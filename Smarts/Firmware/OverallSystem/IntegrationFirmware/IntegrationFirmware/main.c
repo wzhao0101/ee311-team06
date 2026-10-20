@@ -56,6 +56,30 @@ void timer0_init(void)
     TIMSK0 = (1 << OCIE0A);
 }
 
+/* =========================================================
+   PRINT TIMER1 COUNTS AS MICROSECONDS
+   ========================================================= */
+
+static void uart_send_timer_us(uint16_t count)
+{
+    /*
+     * Timer1 runs at 2 MHz
+     * 1 count = 0.5 us
+     */
+
+    uart_send_uint16(count / 2);
+
+    if (count & 1)
+    {
+        uart_send_string(".5");
+    }
+    else
+    {
+        uart_send_string(".0");
+    }
+
+    uart_send_string("us");
+}
 
 /* =========================================================
    MAIN
@@ -95,20 +119,6 @@ int main(void)
          */
 
         protection_update_fast();
-		
-        /*
-         * ========================================
-         * RESET LOGIC
-         * ========================================
-         *
-         * Non-blocking.
-         *
-         * If a fault previously occurred and
-         * all protection flags are now clear,
-         * generate a 10 ms HIGH pulse on PD0.
-         */
-
-        reset_update(system_ms);
 
 
         /*
@@ -124,6 +134,9 @@ int main(void)
 
             touch_update();
         }
+		
+
+        reset_update(system_ms);
 
 
         /*
@@ -194,11 +207,27 @@ int main(void)
 
 
             // -------------------------
-            // Touch
+            // Touch count
             // -------------------------
 
             uint16_t touch_count =
                 touch_get_count();
+				
+			// -------------------------
+			// Protection timing
+			// -------------------------
+
+			uint16_t protection_time =
+			protection_get_total_time_count();
+
+			uint16_t ovp_time =
+			protection_get_ovp_time_count();
+
+			uint16_t ocp_time =
+			protection_get_ocp_time_count();
+
+			uint16_t otp_time =
+			protection_get_otp_time_count();
 
 
             // =================================================
@@ -270,6 +299,18 @@ int main(void)
             uart_send_uint16(
                 protection_get_otp()
             );
+			
+			uart_send_string(" | Tprot=");
+			uart_send_timer_us(protection_time);
+
+			uart_send_string(" | Tovp=");
+			uart_send_timer_us(ovp_time);
+
+			uart_send_string(" | Tocp=");
+			uart_send_timer_us(ocp_time);
+
+			uart_send_string(" | Totp=");
+			uart_send_timer_us(otp_time);
 
 
             uart_send_string("\r\n");

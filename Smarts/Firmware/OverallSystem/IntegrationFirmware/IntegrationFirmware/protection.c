@@ -2,8 +2,8 @@
  * protection.c
  *
  * Created: 1/10/2026 1:48:31 pm
- *  Author: byhz780
- */ 
+ * Author: byhz780
+ */
 
 #include <avr/io.h>
 #include <stdint.h>
@@ -19,84 +19,24 @@
  */
 
 
-/*
- * OVP
- *
- * Target firmware trip:
- * Vsupercap = 3.50 V
- *
- * Measured Vvs at 3.50 V:
- * approximately 4.39 V
- *
- * ADC count:
- * 4.39 / 5.0 * 1023 ? 898
- *
- * Use hysteresis so OVP does not chatter around 3.5 V.
- */
+/* OVP */
 
 #define OVP_TRIP_ADC     893
 #define OVP_RESET_ADC    885
 
 
-/*
- * OTP
- *
- * Firmware trip target:
- * 65 C
- *
- * Measured:
- * 65 C -> Vts ? 2.74 V
- *
- * ADC:
- * 2.74 / 5.0 * 1023 ? 561
- *
- * Higher temperature -> lower Vts -> lower ADC count.
- */
+/* OTP */
 
 #define OTP_TRIP_ADC     561
-
-/*
- * Reset threshold is slightly higher,
- * meaning the system must cool down before OTP clears.
- *
- * This value can be calibrated later.
- */
-
 #define OTP_RESET_ADC    575
 
 
-/*
- * BOOST OCP
- *
- * Temporary threshold based on:
- *
- * Vis = 2.5 + I
- *
- * Boost FW threshold = +2.4 A
- *
- * Vis = 4.9 V
- *
- * ADC ? 1003
- *
- * We can update this later when you provide
- * the final current-sensing information.
- */
+/* BOOST OCP */
 
 #define BOOST_OCP_TRIP_ADC    1003
 
 
-/*
- * CHARGER OCP
- *
- * Temporary threshold based on:
- *
- * Charger FW threshold = -0.4 A
- *
- * Vis = 2.5 - 0.4
- *     = 2.1 V
- *
- * ADC ? 430
- */
+/* CHARGER OCP */
 
 #define CHARGER_OCP_TRIP_ADC  430
 
@@ -115,16 +55,36 @@ static uint8_t boost_ocp_fault = 0;
 static uint8_t charger_ocp_fault = 0;
 
 
+
 /*
- * Store the latest averaged ADC values.
- *
- * These values are also used by main.c
- * for UART diagnostics.
+ * =========================================================
+ * LATEST ADC VALUES
+ * =========================================================
  */
 
 static uint16_t latest_vvs_adc = 0;
 static uint16_t latest_vis_adc = 0;
 static uint16_t latest_vts_adc = 0;
+
+
+
+/*
+ * =========================================================
+ * TIMING RESULTS
+ * =========================================================
+ *
+ * Timer1:
+ *
+ * 16 MHz / 8 = 2 MHz
+ *
+ * 1 count = 0.5 us
+ */
+
+static uint16_t total_time_count = 0;
+
+static uint16_t ovp_time_count = 0;
+static uint16_t ocp_time_count = 0;
+static uint16_t otp_time_count = 0;
 
 
 
@@ -148,6 +108,14 @@ void protection_init(void)
     // Start with both fault outputs LOW
     PORTC &= ~(1 << PC3);
     PORTC &= ~(1 << PC4);
+
+
+    // Clear timing results
+    total_time_count = 0;
+
+    ovp_time_count = 0;
+    ocp_time_count = 0;
+    otp_time_count = 0;
 }
 
 
@@ -161,43 +129,98 @@ void protection_init(void)
 void protection_update_fast(void)
 {
     /*
-     * -----------------------------------------------------
-     * READ SENSOR CHANNELS
-     * -----------------------------------------------------
-     *
-     * ADC0 = Vvs
-     * ADC1 = Vis
-     * ADC2 = Vts
-     *
-     * Each uses the 4-sample fast average.
-     *
-     * No intentional delay is used here.
+     * Individual timing markers
      */
 
-    latest_vvs_adc =
-        adc_read_fast_average(0);
+    uint16_t start_count;
+    uint16_t vvs_adc_time;
+    uint16_t vis_adc_time;
+    uint16_t vts_adc_time;
 
-    latest_vis_adc =
-        adc_read_fast_average(1);
-
-    latest_vts_adc =
-        adc_read_fast_average(2);
+    uint16_t ovp_logic_time;
+    uint16_t ocp_logic_time;
+    uint16_t otp_logic_time;
 
 
 
     /*
-     * -----------------------------------------------------
-     * OVP
-     * -----------------------------------------------------
-     *
-     * Hysteresis:
-     *
-     * If currently SAFE:
-     *     trip when ADC >= 898
-     *
-     * If currently in FAULT:
-     *     remain faulted until ADC <= 890
+     * =====================================================
+     * START OVERALL TIMER
+     * =====================================================
      */
+
+    // Stop Timer1 first
+    TCCR1B = 0;
+
+    // Normal mode
+    TCCR1A = 0;
+
+    // Start measurement from zero
+    TCNT1 = 0;
+
+    // Prescaler = 8
+    // 16 MHz / 8 = 2 MHz
+    // 1 count = 0.5 us
+    TCCR1B = (1 << CS11);
+
+
+
+    /*
+     * =====================================================
+     * ADC0 - Vvs
+     * =====================================================
+     */
+
+    start_count = TCNT1;
+
+    latest_vvs_adc =
+        adc_read_fast_average(0);
+
+    vvs_adc_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
+
+    /*
+     * =====================================================
+     * ADC1 - Vis
+     * =====================================================
+     */
+
+    start_count = TCNT1;
+
+    latest_vis_adc =
+        adc_read_fast_average(1);
+
+    vis_adc_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
+
+    /*
+     * =====================================================
+     * ADC2 - Vts
+     * =====================================================
+     */
+
+    start_count = TCNT1;
+
+    latest_vts_adc =
+        adc_read_fast_average(2);
+
+    vts_adc_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
+
+    /*
+     * =====================================================
+     * OVP
+     * =====================================================
+     */
+
+    start_count = TCNT1;
+
 
     if (ovp_fault == 0)
     {
@@ -215,20 +238,19 @@ void protection_update_fast(void)
     }
 
 
+    ovp_logic_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
 
     /*
-     * -----------------------------------------------------
+     * =====================================================
      * OTP
-     * -----------------------------------------------------
-     *
-     * Higher temperature gives lower Vts.
-     *
-     * Trip:
-     *     ADC <= 561
-     *
-     * Reset:
-     *     ADC >= 575
+     * =====================================================
      */
+
+    start_count = TCNT1;
+
 
     if (otp_fault == 0)
     {
@@ -246,15 +268,22 @@ void protection_update_fast(void)
     }
 
 
+    otp_logic_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
 
     /*
-     * -----------------------------------------------------
+     * =====================================================
+     * OCP
+     * =====================================================
+     */
+
+    start_count = TCNT1;
+
+
+    /*
      * BOOST OCP
-     * -----------------------------------------------------
-     *
-     * For now:
-     *
-     * +2.4 A -> Vis ? 4.9 V
      */
 
     if (latest_vis_adc >= BOOST_OCP_TRIP_ADC)
@@ -267,15 +296,8 @@ void protection_update_fast(void)
     }
 
 
-
     /*
-     * -----------------------------------------------------
      * CHARGER OCP
-     * -----------------------------------------------------
-     *
-     * For now:
-     *
-     * -0.4 A -> Vis ? 2.1 V
      */
 
     if (latest_vis_adc <= CHARGER_OCP_TRIP_ADC)
@@ -288,19 +310,15 @@ void protection_update_fast(void)
     }
 
 
+    ocp_logic_time =
+        (uint16_t)(TCNT1 - start_count);
+
+
 
     /*
-     * -----------------------------------------------------
+     * =====================================================
      * BOOST FAULT OUTPUT
-     * -----------------------------------------------------
-     *
-     * BOOST_FAULT_FW goes HIGH if:
-     *
-     * OVP
-     * OR
-     * OTP
-     * OR
-     * BOOST OCP
+     * =====================================================
      */
 
     if (
@@ -321,17 +339,9 @@ void protection_update_fast(void)
 
 
     /*
-     * -----------------------------------------------------
+     * =====================================================
      * CHARGER FAULT OUTPUT
-     * -----------------------------------------------------
-     *
-     * CHARGER_FAULT_FW goes HIGH if:
-     *
-     * OVP
-     * OR
-     * OTP
-     * OR
-     * CHARGER OCP
+     * =====================================================
      */
 
     if (
@@ -348,6 +358,45 @@ void protection_update_fast(void)
     {
         PORTC &= ~(1 << PC3);
     }
+
+
+
+    /*
+     * =====================================================
+     * FINISH OVERALL MEASUREMENT
+     * =====================================================
+     */
+
+    total_time_count = TCNT1;
+
+
+    // Stop Timer1
+    TCCR1B = 0;
+
+
+
+    /*
+     * =====================================================
+     * INDIVIDUAL PROTECTION TIMES
+     * =====================================================
+     *
+     * These are:
+     *
+     * sensor acquisition
+     * +
+     * associated protection decision
+     */
+
+    ovp_time_count =
+        vvs_adc_time + ovp_logic_time;
+
+
+    ocp_time_count =
+        vis_adc_time + ocp_logic_time;
+
+
+    otp_time_count =
+        vts_adc_time + otp_logic_time;
 }
 
 
@@ -404,4 +453,35 @@ uint16_t protection_get_vis_adc(void)
 uint16_t protection_get_vts_adc(void)
 {
     return latest_vts_adc;
+}
+
+
+
+/*
+ * =========================================================
+ * TIMING GETTERS
+ * =========================================================
+ */
+
+uint16_t protection_get_total_time_count(void)
+{
+    return total_time_count;
+}
+
+
+uint16_t protection_get_ovp_time_count(void)
+{
+    return ovp_time_count;
+}
+
+
+uint16_t protection_get_ocp_time_count(void)
+{
+    return ocp_time_count;
+}
+
+
+uint16_t protection_get_otp_time_count(void)
+{
+    return otp_time_count;
 }
